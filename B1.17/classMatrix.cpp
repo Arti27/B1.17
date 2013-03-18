@@ -56,3 +56,8 @@ int Matrix::getAmountOfColumns() const
 {
 	return col;
 }
+double& Matrix::element(int row_i, int col_j)
+{
+
+	return a[row_i][col_j];
+}

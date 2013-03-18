@@ -58,6 +58,23 @@ int Matrix::getAmountOfColumns() const
 }
 double& Matrix::element(int row_i, int col_j)
 {
-
 	return a[row_i][col_j];
+}
+double Matrix::Opredel_Matr() const
+{
+	int i,j,k;
+	double det=1;
+	for(i=0;i<this->row;i++)
+	{
+		for(j=i+1;j<this->row;j++)
+		{
+			if(this->a[i][i]==0)
+				return 0;
+			double b=this->a[j][i]/this->a[i][i];
+			for(k=i;k<this->row;k++)
+				this->a[j][k]=this->a[j][k]-this->a[i][k]*b;
+		}
+		det*=this->a[i][i];
+	}
+	return det;
 }

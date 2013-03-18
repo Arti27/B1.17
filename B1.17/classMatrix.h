@@ -23,4 +23,6 @@ public:
 	int getAmountOfRows() const;
 	int getAmountOfColumns() const;
 	double& element(int row_i, int col_j);
+
+
 };

@@ -13,7 +13,7 @@ class Matrix
 	friend ostream& operator<<(ostream& out, const Matrix& mat);
 private:
 	double** a;
-	int row, collate;
+	int row, col;
 public:
 	double Opredel_Matr() const;
 	void Inversion() const;

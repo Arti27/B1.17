@@ -1,4 +1,4 @@
-include "classMatrix.h"         
+#include "classMatrix.h"
 
 Matrix::Matrix(int amount_of_row, int amount_of_col)
 {
@@ -54,10 +54,12 @@ int Matrix::getAmountOfColumns() const
 {
 	return col;
 }
+
 double& Matrix::element(int row_i, int col_j)
 {
 	return a[row_i][col_j];
 }
+
 double Matrix::Opredel_Matr() const
 {
 	int i,j,k;
@@ -75,6 +77,58 @@ double Matrix::Opredel_Matr() const
 		det*=this->a[i][i];
 	}
 	return det;
+}
+
+void Matrix::Inversion() const
+{
+	double temp;
+	double **E = new double *[this->row];
+	for (int i = 0; i < this->row; i++)
+		E[i] = new double [this->row];
+	for (int i = 0; i < this->row; i++)
+		for (int j = 0; j < this->row; j++)
+		{
+			E[i][j] = 0.0;
+
+			if (i == j)
+				E[i][j] = 1.0;
+		}
+		for (int k = 0; k < this->row; k++)
+		{
+			temp = this->a[k][k];
+			for (int j = 0; j < this->row; j++)
+			{
+				this->a[k][j] /= temp;
+				E[k][j] /= temp;
+			}
+			for (int i = k + 1; i < this->row; i++)
+			{
+				temp = this->a[i][k];
+				for (int j = 0; j < this->row; j++)
+				{
+					this->a[i][j] -= this->a[k][j] * temp;
+					E[i][j] -= E[k][j] * temp;
+				}
+			}
+		}
+		for (int k = this->row - 1; k > 0; k--)
+		{
+			for (int i = k - 1; i >= 0; i--)
+			{
+				temp = this->a[i][k];
+				for (int j = 0; j < this->row; j++)
+				{
+					this->a[i][j] -= this->a[k][j] * temp;
+					E[i][j] -= E[k][j] * temp;
+				}
+			}
+		}
+		for (int i = 0; i < this->row; i++)
+			for (int j = 0; j < this->row; j++)
+				this->a[i][j] = E[i][j];
+		for (int i = 0; i < this->row; i++)
+			delete [] E[i];
+		delete [] E;
 }
 
 void Matrix::operator=(const Matrix& mat)
@@ -130,7 +184,6 @@ ostream& operator<<(ostream& out, const Matrix& mat)
 
 Matrix Matrix::operator*(const Matrix& mat) const
 {
-
 	Matrix new_mat(row, mat.col);
 	for (int i = 0; i < new_mat.row; i++)
 	{

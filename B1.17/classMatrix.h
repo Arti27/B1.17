@@ -23,6 +23,8 @@ public:
 	int getAmountOfRows() const;
 	int getAmountOfColumns() const;
 	double& element(int row_i, int col_j);
-
-
+	void operator=(const Matrix& mat);
+	Matrix operator*(const Matrix& mat) const;
+	Matrix operator*(double num) const;
 };
+#endif

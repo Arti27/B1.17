@@ -46,3 +46,13 @@ Matrix::~Matrix()
 	}
 	delete [] a;
 }
+
+int Matrix::getAmountOfRows() const
+{
+	return row;
+}
+
+int Matrix::getAmountOfColumns() const
+{
+	return col;
+}

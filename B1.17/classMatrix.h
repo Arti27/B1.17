@@ -20,4 +20,6 @@ public:
 	Matrix(int amount_of_row, int amount_of_col);
 	Matrix(const Matrix& mat);
 	~Matrix();
+	int getAmountOfRows() const;
+	int getAmountOfColumns() const;
 };
